@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logged In</title>
+</head>
+<body>
+<div>
+  <h1>Hello You Have Logged In</h1>
+  <form id="testForm" action = "/logout">
+		<input type="button" onclick= "clickLogin()"  value="Logout"/>
+  </form>
+</div>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script>
+function clickLogin()
+{
+	$("#testForm").submit();
+}
+</script>
