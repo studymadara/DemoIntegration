@@ -22,11 +22,5 @@ public class MainController
 	{
 		return "shadyPage.html";
 	}
-	
-	@GetMapping("/test")
-	public String test()
-	{
-		return "shadyPage.html";
-	}
-	
+
 }
