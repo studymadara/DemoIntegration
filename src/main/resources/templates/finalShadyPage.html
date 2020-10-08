@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Finale</title>
+</head>
+<body>
+<h1>Hello You Have Logged In</h1>
+<h4>User Name: </h4>
+<h4 th:text="${username}"></h4>
+<h4>Email Id: </h4>
+<h4 th:text="${emailId}"></h4>
+
+<form id="testForm" action = "/logout">
+    <input type="button" onclick= "clickLogin()"  value="Logout"/>
+</form>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script>
+function clickLogin()
+{
+	$("#testForm").submit();
+}
+</script>
