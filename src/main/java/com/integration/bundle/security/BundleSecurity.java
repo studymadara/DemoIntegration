@@ -13,7 +13,7 @@ public class BundleSecurity extends WebSecurityConfigurerAdapter
 	{
 		http
 			.antMatcher("/**").authorizeRequests()
-			.antMatchers("/loginPage").permitAll()
+			.antMatchers(new String[]{"/loginPage","/uploadData","/docxUpload","/generateFile"}).permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.oauth2Login()

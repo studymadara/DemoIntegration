@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Page</title>
+    <input type="file" id="myFile" name="file" accept=".docx">
+    <input type="button" value="Upload File" onclick="uploadFile()"/>
+    <input type="hidden" id="_csrf" th:value="${_csrf.token}" />`
+</head>
+<body>
+
+<form id="generateFileForm" method="post"  enctype="multipart/form-data" action="/generateFile" target="_blank">
+   <!-- <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded">-->
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}" />`
+    <div id="resultDiv">
+    </div>
+</form>
+
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+
+var GLOBAL_RESPONSE="";
+
+function uploadFile()
+{
+    if($('#myFile')[0].files[0]== null)
+    {
+        alert("Please Upload File");
+        return false;
+    }
+
+	var formData = new FormData();
+	formData.append('file', $('#myFile')[0].files[0]);
+    formData.append('_csrf', $("#_csrf").val());
+
+    $("#resultDiv").empty();
+
+    $.ajax({
+           url : '/docxUpload',
+           type : 'POST',
+           data : formData,
+           processData: false,  // tell jQuery not to process the data
+           contentType: false,  // tell jQuery not to set contentType
+           success : function(data)
+           {
+               console.log(data);
+               if(data.length!=0)
+                  GLOBAL_RESPONSE=data;
+               else
+               {
+                   $("#resultDiv").append('<h4>No Data Found</h4>');
+                  return false;
+               }
+               var appendResultHtml="<br><br>";
+
+               $( data ).each(function(index,value)
+               {
+                  console.log( value );
+                  appendResultHtml+='<div style="padding-left:5em">'+value+'</div><div style="padding-left:5em"><input type="text" name="'+value+'" id="'+value+'" class="form-control"></div>';
+               });
+
+               appendResultHtml+='<div style="padding-left:5em"><input type="button" value="Generate File" onclick="generateFile()"/></div>';
+
+               $("#resultDiv").append(appendResultHtml);
+           }
+    });
+}
+
+function generateFile()
+{
+    $("#generateFileForm").submit();
+}
+
+</script>
